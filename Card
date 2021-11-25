@@ -1,0 +1,65 @@
+/*
+문제의 배경
+다음과 같은 '게임'을 한다. 카드가 한 줄로 앞에 놓여있는데, 위로 향해 있거나 아래로 뒤집혀 있따.
+게임을 하는 도중 한 단계마다 다음과 같은 작업을 한다.
+
+-오른쪽에서 왼쪽으로 가며 카드들은 한 장씩 살펴본다.
+-어떤 카드가 아래로 뒤집혀있다면, 위로 향하도록 뒤집고 그 단계가 끝난다.
+-어떤 카드가 위로 향해있따면, 그 카드를 아래로 향하도록 뒤집고 그 다음 카드를 확인한다.
+-카드들이 더 이상 없다면 그 단계가 끝난다. 
+*/
+
+#include <stdio.h> 
+
+int in1 = 0; 
+int card[32] = {};
+int count = 0;
+
+void print_card()
+{
+	int i;
+	for(i = 0; i<=32; i++){
+		printf("%d", card[i]);}
+	printf("\n");
+}
+
+void flip()
+{
+	int i,j;
+	printf(" 0 ");
+	print_card();
+	for(i = 1; i<=in1; i++)
+	{
+		printf("%2d ", i);
+		for(j = 31; j>=0; j--)
+		{
+			if(card[j] == 0)
+			{
+				card[j] = 1;
+				break;
+			}
+			else
+			{
+				card[j] = 0;
+			}
+		}
+		print_card();
+	}
+	for(j=0; j<32; j++)
+		if(card[j] ==1)
+			count += 1;
+}
+
+int main()
+{
+	printf("원하는 단계를 입력하세요: ");
+	scanf("%d", &in1);
+	
+	int n;
+	printf("단계	카드상태	\n");
+	printf("-------------------------------\n");
+	flip();
+	printf("-------------------------------\n");
+	printf("위로 향한 카드의 개수는 = %d\n", count);
+	return 0;
+} 
